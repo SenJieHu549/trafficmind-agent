@@ -1,0 +1,42 @@
+{
+  "regionId": "SHU_BAOSHAN_001",
+  "name": "上海大学宝山校区周边",
+  "city": "上海市",
+  "district": "宝山区",
+  "timezone": "Asia/Shanghai",
+  "status": "active",
+  "description": "上海大学宝山校区周边道路的有限资料范围，非行政区划或完整路网。",
+  "metadata": {
+    "notOfficialAdministrativeUnit": true,
+    "coverageType": "bounded_campus_surroundings",
+    "approximateStudyArea": {
+      "longitudeRange": [
+        121.38,
+        121.41
+      ],
+      "latitudeRange": [
+        31.305,
+        31.33
+      ]
+    },
+    "sourceIds": [
+      "SRC_SHU_CONTACT",
+      "SRC_SHU_SECURITY_20260828",
+      "SRC_OSM_SHU_BAOSHAN_20261111"
+    ],
+    "dataReality": {
+      "region": "real_public_source_grounded",
+      "roads": "open_geo_verified",
+      "intersections": "open_geo_verified",
+      "pois": "first_party_verified",
+      "historicalEvents": "not_included",
+      "caseMemory": "not_included",
+      "realtimeTraffic": false,
+      "officialGIS": false
+    }
+  },
+  "sourceType": "first_party",
+  "sourceReference": "SRC_SHU_CONTACT",
+  "verifiedAt": "2026-11-11T12:03:34Z",
+  "verificationStatus": "verified"
+}

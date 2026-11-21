@@ -1,0 +1,68 @@
+[
+  {
+    "poiId": "SHU_BS_POI_CAMPUS",
+    "regionId": "SHU_BAOSHAN_001",
+    "name": "上海大学宝山校区",
+    "type": "school",
+    "roadId": "SHU_BS_RD_SHANGDA",
+    "importance": "high",
+    "status": "active",
+    "metadata": {
+      "address": "上海市宝山区上大路99号",
+      "institutionSubtype": "university",
+      "sourceIds": [
+        "SRC_SHU_CONTACT",
+        "SRC_SHU_SECURITY_20260828"
+      ],
+      "locationBindingBasis": "SHU first-party address identifies this road; no entrance point coordinate or intersection binding is asserted."
+    },
+    "sourceType": "first_party",
+    "sourceReference": "SRC_SHU_SECURITY_20260828",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "poiId": "SHU_BS_POI_NORTH_GATE",
+    "regionId": "SHU_BAOSHAN_001",
+    "name": "上海大学宝山校区北门",
+    "type": "other_critical",
+    "roadId": "SHU_BS_RD_JINQIU",
+    "importance": "high",
+    "status": "active",
+    "metadata": {
+      "address": "上海市宝山区锦秋路716号",
+      "institutionSubtype": "campus_entrance",
+      "sourceIds": [
+        "SRC_SHU_CONTACT",
+        "SRC_SHU_SECURITY_20260828"
+      ],
+      "locationBindingBasis": "SHU first-party address identifies this road; no entrance point coordinate or intersection binding is asserted."
+    },
+    "sourceType": "first_party",
+    "sourceReference": "SRC_SHU_SECURITY_20260828",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "poiId": "SHU_BS_POI_NANCHEN_GATE",
+    "regionId": "SHU_BAOSHAN_001",
+    "name": "上海大学宝山校区南陈路出入口",
+    "type": "other_critical",
+    "roadId": "SHU_BS_RD_NANCHEN",
+    "importance": "high",
+    "status": "active",
+    "metadata": {
+      "address": "上海市宝山区南陈路380号",
+      "institutionSubtype": "campus_entrance",
+      "sourceIds": [
+        "SRC_SHU_CONTACT",
+        "SRC_SHU_SECURITY_20260828"
+      ],
+      "locationBindingBasis": "SHU first-party address identifies this road; no entrance point coordinate or intersection binding is asserted."
+    },
+    "sourceType": "first_party",
+    "sourceReference": "SRC_SHU_SECURITY_20260828",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  }
+]

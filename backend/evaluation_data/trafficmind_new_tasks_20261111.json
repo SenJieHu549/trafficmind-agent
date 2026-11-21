@@ -1,0 +1,821 @@
+{
+  "schemaVersion": "trafficmind-eval-v2",
+  "datasetVersion": "new-tasks-20261111-1",
+  "split": "acceptance",
+  "datasetKind": "synthetic_first_pass_mixed_chain",
+  "purpose": "20 frozen new tasks: 16 accident-model tasks and 4 natural deterministic human-review tasks. First-pass current-version evaluation, not an optimization ablation or real-world traffic outcome benchmark.",
+  "asOf": "2026-11-11T08:00:00+08:00",
+  "eventDefaults": {
+    "eventType": "accident",
+    "eventTypeCn": "事故",
+    "roadName": "新任务评测专用道路",
+    "direction": "南向北",
+    "avgSpeed": 38,
+    "queueLength": 20,
+    "duration": 300,
+    "vehicleCount": 2,
+    "weather": "clear",
+    "timePeriod": "off_peak",
+    "isMainRoad": false,
+    "nearbySchool": false,
+    "nearbyHospital": false
+  },
+  "knowledge": [
+    {
+      "documentId": "new-basic",
+      "chunkId": "new-basic-c0",
+      "title": "合成规范：现场信息核实",
+      "content": "现场伤亡、道路受阻和救援进展未经核实应明确未知；保持应急通道畅通，历史案例不等于本次现场事实。这里只提供候选建议，不代表已派单、通知或恢复通行。"
+    },
+    {
+      "documentId": "new-action",
+      "chunkId": "new-action-c0",
+      "title": "合成规范：内部核实任务",
+      "content": "可提出 create_dispatch_task 内部核实候选动作，instruction 应描述核实伤亡与可通行车道；必须人工审批后才能执行。不得将未知伤亡当作无人受伤。"
+    },
+    {
+      "documentId": "new-rain",
+      "chunkId": "new-rain-c0",
+      "title": "合成规范：雨天与应急通道",
+      "content": "雨天事故建议先核实车辆位置、伤亡、可通行车道和积水；分流不得占用应急通道。缺少积水观测时不得声称存在或不存在积水。内部核实任务仍需要人工审批。"
+    }
+  ],
+  "cases": [
+    {
+      "caseId": "N01",
+      "name": "白天低影响碰撞",
+      "category": "ordinary",
+      "scenarioGroup": "N01-ordinary",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {},
+      "question": "两车发生碰撞，车速38km/h、排队20米、已持续5分钟，伤亡未知。请给出核实顺序和保守建议。 区分已知事实与待核实事项，引用实际可用证据，不声称已完成现实处置。本题不要求创建业务动作。",
+      "qualityEligible": true,
+      "annotations": {
+        "origin": "new_synthetic_tasks_not_human_quality_labels",
+        "knownFacts": [
+          "结构化当前事件字段是本次已提供信息；历史案例和会话记忆不是本次新观测。"
+        ],
+        "unknownFacts": [
+          "未提供的伤亡、车道占用、救援到场、道路恢复和实际处置效果均未知。"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false
+      }
+    },
+    {
+      "caseId": "N02",
+      "name": "小雨与有限排队",
+      "category": "ordinary",
+      "scenarioGroup": "N02-ordinary",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {
+        "weather": "rain",
+        "vehicleCount": 3,
+        "avgSpeed": 23,
+        "queueLength": 90,
+        "duration": 480
+      },
+      "question": "雨天三车碰撞，车速23km/h、排队90米，未提供积水观测。请区分已知风险与需要核实的影响。 区分已知事实与待核实事项，引用实际可用证据，不声称已完成现实处置。本题不要求创建业务动作。",
+      "qualityEligible": true,
+      "annotations": {
+        "origin": "new_synthetic_tasks_not_human_quality_labels",
+        "knownFacts": [
+          "结构化当前事件字段是本次已提供信息；历史案例和会话记忆不是本次新观测。"
+        ],
+        "unknownFacts": [
+          "未提供的伤亡、车道占用、救援到场、道路恢复和实际处置效果均未知。"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false
+      }
+    },
+    {
+      "caseId": "N03",
+      "name": "大雾且速度未知",
+      "category": "ordinary",
+      "scenarioGroup": "N03-ordinary",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {
+        "weather": "fog",
+        "avgSpeed": null,
+        "vehicleCount": null,
+        "queueLength": 35,
+        "duration": 420
+      },
+      "question": "大雾条件下发生事故，当前车速和涉事车辆数没有提供。请保留这些未知，不自行补零。 区分已知事实与待核实事项，引用实际可用证据，不声称已完成现实处置。本题不要求创建业务动作。",
+      "qualityEligible": true,
+      "annotations": {
+        "origin": "new_synthetic_tasks_not_human_quality_labels",
+        "knownFacts": [
+          "结构化当前事件字段是本次已提供信息；历史案例和会话记忆不是本次新观测。"
+        ],
+        "unknownFacts": [
+          "未提供的伤亡、车道占用、救援到场、道路恢复和实际处置效果均未知。"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false
+      }
+    },
+    {
+      "caseId": "N04",
+      "name": "晚高峰主干道事故",
+      "category": "ordinary",
+      "scenarioGroup": "N04-ordinary",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {
+        "timePeriod": "evening_peak",
+        "isMainRoad": true,
+        "avgSpeed": 16,
+        "queueLength": 180,
+        "duration": 720
+      },
+      "question": "晚高峰主干道事故，车速16km/h、排队180米、持续12分钟。请说明交通影响和还需要哪些现场信息。 区分已知事实与待核实事项，引用实际可用证据，不声称已完成现实处置。本题不要求创建业务动作。",
+      "qualityEligible": true,
+      "annotations": {
+        "origin": "new_synthetic_tasks_not_human_quality_labels",
+        "knownFacts": [
+          "结构化当前事件字段是本次已提供信息；历史案例和会话记忆不是本次新观测。"
+        ],
+        "unknownFacts": [
+          "未提供的伤亡、车道占用、救援到场、道路恢复和实际处置效果均未知。"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false
+      }
+    },
+    {
+      "caseId": "N05",
+      "name": "医院附近事故",
+      "category": "ordinary",
+      "scenarioGroup": "N05-ordinary",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {
+        "nearbyHospital": true,
+        "avgSpeed": 28,
+        "queueLength": 55,
+        "duration": 360
+      },
+      "question": "医院附近发生事故，急救车辆是否受影响尚无观测。请提出保障通行的核实建议，不声称已经影响了急救。 区分已知事实与待核实事项，引用实际可用证据，不声称已完成现实处置。本题不要求创建业务动作。",
+      "qualityEligible": true,
+      "annotations": {
+        "origin": "new_synthetic_tasks_not_human_quality_labels",
+        "knownFacts": [
+          "结构化当前事件字段是本次已提供信息；历史案例和会话记忆不是本次新观测。"
+        ],
+        "unknownFacts": [
+          "未提供的伤亡、车道占用、救援到场、道路恢复和实际处置效果均未知。"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false
+      }
+    },
+    {
+      "caseId": "N06",
+      "name": "学校附近信息不完整",
+      "category": "ordinary",
+      "scenarioGroup": "N06-ordinary",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {
+        "nearbySchool": true,
+        "vehicleCount": null,
+        "duration": null,
+        "avgSpeed": 30,
+        "queueLength": 45
+      },
+      "question": "学校附近发生事故，车辆数和持续时间未知，当前未提供人员伤情。请避免把缺失数据写成确定结论。 区分已知事实与待核实事项，引用实际可用证据，不声称已完成现实处置。本题不要求创建业务动作。",
+      "qualityEligible": true,
+      "annotations": {
+        "origin": "new_synthetic_tasks_not_human_quality_labels",
+        "knownFacts": [
+          "结构化当前事件字段是本次已提供信息；历史案例和会话记忆不是本次新观测。"
+        ],
+        "unknownFacts": [
+          "未提供的伤亡、车道占用、救援到场、道路恢复和实际处置效果均未知。"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false
+      }
+    },
+    {
+      "caseId": "K01",
+      "name": "续接记忆约束进入分析",
+      "category": "memory",
+      "scenarioGroup": "K01-memory",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {},
+      "question": "继续研判当前事故，请结合此前约束组织待核实清单。 区分已知事实与待核实事项，引用实际可用证据，不声称已完成现实处置。本题不要求创建业务动作。",
+      "qualityEligible": true,
+      "annotations": {
+        "origin": "new_synthetic_tasks_not_human_quality_labels",
+        "knownFacts": [
+          "结构化当前事件字段是本次已提供信息；历史案例和会话记忆不是本次新观测。"
+        ],
+        "unknownFacts": [
+          "未提供的伤亡、车道占用、救援到场、道路恢复和实际处置效果均未知。"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false,
+        "requiredMemoryIds": {
+          "AccidentAgent": [
+            "new-m-access"
+          ]
+        }
+      },
+      "memoryItems": [
+        {
+          "item_id": "new-m-access",
+          "memory_type": "constraint",
+          "memory_key": "constraint.access",
+          "status": "active",
+          "value": {
+            "text": "建议应单独列出待核实的伤亡与可通行车道，不使用未经核实的具体结论。"
+          }
+        }
+      ]
+    },
+    {
+      "caseId": "K02",
+      "name": "隔离无效和外部记忆",
+      "category": "memory",
+      "scenarioGroup": "K02-memory",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {},
+      "question": "继续分析当前事故，遵守当前线程的通行约束。 区分已知事实与待核实事项，引用实际可用证据，不声称已完成现实处置。本题不要求创建业务动作。",
+      "qualityEligible": true,
+      "annotations": {
+        "origin": "new_synthetic_tasks_not_human_quality_labels",
+        "knownFacts": [
+          "结构化当前事件字段是本次已提供信息；历史案例和会话记忆不是本次新观测。"
+        ],
+        "unknownFacts": [
+          "未提供的伤亡、车道占用、救援到场、道路恢复和实际处置效果均未知。"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false,
+        "requiredMemoryIds": {
+          "AccidentAgent": [
+            "new-m-valid"
+          ]
+        },
+        "forbiddenMemoryIds": [
+          "new-m-foreign",
+          "new-m-thread",
+          "new-m-expired",
+          "new-m-candidate"
+        ]
+      },
+      "memoryItems": [
+        {
+          "item_id": "new-m-valid",
+          "memory_type": "constraint",
+          "memory_key": "constraint.access",
+          "status": "active",
+          "value": {
+            "text": "保持应急通道可用，具体车道情况需现场核实。"
+          }
+        },
+        {
+          "item_id": "new-m-foreign",
+          "memory_type": "constraint",
+          "memory_key": "constraint.foreign",
+          "status": "active",
+          "value": {
+            "text": "其他会话的约束"
+          },
+          "fixtureScope": "foreign_session"
+        },
+        {
+          "item_id": "new-m-thread",
+          "memory_type": "constraint",
+          "memory_key": "constraint.other",
+          "status": "active",
+          "value": {
+            "text": "其他事件线程的约束"
+          },
+          "fixtureScope": "foreign_thread"
+        },
+        {
+          "item_id": "new-m-expired",
+          "memory_type": "constraint",
+          "memory_key": "constraint.expired",
+          "status": "active",
+          "value": {
+            "text": "已过期的历史约束"
+          },
+          "valid_until": "2000-01-01T00:00:00Z"
+        },
+        {
+          "item_id": "new-m-candidate",
+          "memory_type": "constraint",
+          "memory_key": "constraint.candidate",
+          "status": "candidate",
+          "value": {
+            "text": "尚未确认的约束"
+          }
+        }
+      ]
+    },
+    {
+      "caseId": "K03",
+      "name": "新任务不继承旧约束",
+      "category": "memory",
+      "scenarioGroup": "K03-memory",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {},
+      "question": "新的问题，分析当前这起事故，不沿用上一任务的方案。 区分已知事实与待核实事项，引用实际可用证据，不声称已完成现实处置。本题不要求创建业务动作。",
+      "qualityEligible": true,
+      "annotations": {
+        "origin": "new_synthetic_tasks_not_human_quality_labels",
+        "knownFacts": [
+          "结构化当前事件字段是本次已提供信息；历史案例和会话记忆不是本次新观测。"
+        ],
+        "unknownFacts": [
+          "未提供的伤亡、车道占用、救援到场、道路恢复和实际处置效果均未知。"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false,
+        "memoryMustBeEmpty": true,
+        "forbiddenMemoryIds": [
+          "new-m-old"
+        ]
+      },
+      "contextPolicy": "fresh_event",
+      "memoryItems": [
+        {
+          "item_id": "new-m-old",
+          "memory_type": "constraint",
+          "memory_key": "constraint.old",
+          "status": "active",
+          "value": {
+            "text": "旧事件曾限制某条分流路线。"
+          }
+        }
+      ]
+    },
+    {
+      "caseId": "K04",
+      "name": "按需查询道路类型",
+      "category": "retrieval",
+      "scenarioGroup": "K04-retrieval",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {},
+      "question": "当前事件没有提供 roadType。请调用道路查询工具确认绑定道路类型，再说明该信息与建议的关系。 区分已知事实与待核实事项，引用实际可用证据，不声称已完成现实处置。本题不要求创建业务动作。",
+      "qualityEligible": true,
+      "annotations": {
+        "origin": "new_synthetic_tasks_not_human_quality_labels",
+        "knownFacts": [
+          "结构化当前事件字段是本次已提供信息；历史案例和会话记忆不是本次新观测。"
+        ],
+        "unknownFacts": [
+          "未提供的伤亡、车道占用、救援到场、道路恢复和实际处置效果均未知。"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false,
+        "requiredTools": [
+          "accident_road_context"
+        ]
+      }
+    },
+    {
+      "caseId": "K05",
+      "name": "按需查询雨天规范",
+      "category": "retrieval",
+      "scenarioGroup": "K05-retrieval",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {
+        "weather": "rain",
+        "avgSpeed": 25,
+        "queueLength": 70
+      },
+      "question": "当前初始资料不包含雨天专项要求。请调用知识查询取得雨天和内部核实任务的审批要求，并根据查询结果回答。 区分已知事实与待核实事项，引用实际可用证据，不声称已完成现实处置。本题不要求创建业务动作。",
+      "qualityEligible": true,
+      "annotations": {
+        "origin": "new_synthetic_tasks_not_human_quality_labels",
+        "knownFacts": [
+          "结构化当前事件字段是本次已提供信息；历史案例和会话记忆不是本次新观测。"
+        ],
+        "unknownFacts": [
+          "未提供的伤亡、车道占用、救援到场、道路恢复和实际处置效果均未知。"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false,
+        "requiredTools": [
+          "accident_knowledge_search"
+        ]
+      },
+      "initialEvidenceCount": 1
+    },
+    {
+      "caseId": "K06",
+      "name": "正负案例与未来信息隔离",
+      "category": "case_memory",
+      "scenarioGroup": "K06-case_memory",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {},
+      "question": "请调用案例查询，综合已经发生的正向与失败经验；不要把历史结果保证为本次效果，也不要读取当前时点之后的案例。 区分已知事实与待核实事项，引用实际可用证据，不声称已完成现实处置。本题不要求创建业务动作。",
+      "qualityEligible": true,
+      "annotations": {
+        "origin": "new_synthetic_tasks_not_human_quality_labels",
+        "knownFacts": [
+          "结构化当前事件字段是本次已提供信息；历史案例和会话记忆不是本次新观测。"
+        ],
+        "unknownFacts": [
+          "未提供的伤亡、车道占用、救援到场、道路恢复和实际处置效果均未知。"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false,
+        "requiredTools": [
+          "accident_case_search"
+        ],
+        "requiredCaseIds": [
+          "new-case-positive",
+          "new-case-negative"
+        ],
+        "forbiddenCaseIds": [
+          "new-case-future"
+        ]
+      },
+      "historicalCases": [
+        {
+          "caseId": "new-case-positive",
+          "eventId": "past-new-case-positive",
+          "sourceWorkflowRunId": "past-wf-new-case-positive",
+          "qualityStatus": "VERIFIED_SUCCESS",
+          "completedAt": "2026-11-01T09:00:00+08:00",
+          "createdAt": "2026-11-01T09:00:00+08:00",
+          "updatedAt": "2026-11-01T09:00:00+08:00",
+          "systemUpdatedAt": "2026-11-01T09:00:00+08:00",
+          "feedbackUpdatedAt": "2026-11-01T09:00:00+08:00",
+          "feedbackLifecycle": "COMPLETE",
+          "generatedSummary": "先核实伤情与可通行车道，保留应急通道，人工反馈该内部核实流程有效。",
+          "lessons": [
+            {
+              "summary": "先核实伤情与可通行车道，保留应急通道，人工反馈该内部核实流程有效。"
+            }
+          ],
+          "eventOutcome": {
+            "businessOutcomeConfirmed": true,
+            "operatorAssessment": {
+              "outcome": "RESOLVED",
+              "effectiveness": "EFFECTIVE",
+              "assessedAt": "2026-11-01T09:00:00+08:00"
+            }
+          }
+        },
+        {
+          "caseId": "new-case-negative",
+          "eventId": "past-new-case-negative",
+          "sourceWorkflowRunId": "past-wf-new-case-negative",
+          "qualityStatus": "FAILED_OUTCOME",
+          "completedAt": "2026-11-02T09:00:00+08:00",
+          "createdAt": "2026-11-02T09:00:00+08:00",
+          "updatedAt": "2026-11-02T09:00:00+08:00",
+          "systemUpdatedAt": "2026-11-02T09:00:00+08:00",
+          "feedbackUpdatedAt": "2026-11-02T09:00:00+08:00",
+          "feedbackLifecycle": "COMPLETE",
+          "generatedSummary": "未经核实就建议绕行导致方案不适用，后续反馈该建议未解决问题。",
+          "lessons": [
+            {
+              "summary": "未经核实就建议绕行导致方案不适用，后续反馈该建议未解决问题。"
+            }
+          ],
+          "eventOutcome": {
+            "businessOutcomeConfirmed": true,
+            "operatorAssessment": {
+              "outcome": "NOT_RESOLVED",
+              "effectiveness": "INEFFECTIVE",
+              "assessedAt": "2026-11-02T09:00:00+08:00"
+            }
+          }
+        },
+        {
+          "caseId": "new-case-future",
+          "eventId": "past-new-case-future",
+          "sourceWorkflowRunId": "past-wf-new-case-future",
+          "qualityStatus": "VERIFIED_SUCCESS",
+          "completedAt": "2026-11-12T09:00:00+08:00",
+          "createdAt": "2026-11-12T09:00:00+08:00",
+          "updatedAt": "2026-11-12T09:00:00+08:00",
+          "systemUpdatedAt": "2026-11-12T09:00:00+08:00",
+          "feedbackUpdatedAt": "2026-11-12T09:00:00+08:00",
+          "feedbackLifecycle": "COMPLETE",
+          "generatedSummary": "未来案例，不得被当前任务看到。",
+          "lessons": [
+            {
+              "summary": "未来案例，不得被当前任务看到。"
+            }
+          ],
+          "eventOutcome": {
+            "businessOutcomeConfirmed": true,
+            "operatorAssessment": {
+              "outcome": "RESOLVED",
+              "effectiveness": "EFFECTIVE",
+              "assessedAt": "2026-11-12T09:00:00+08:00"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "caseId": "H01",
+      "knowledge": [{"documentId":"new-signal-H01","chunkId":"new-signal-H01-c0","eventType":"congestion","title":"合成规范：学校周边拥堵","content":"学校周边拥堵方案应核实流量并保障行人过街。信号调整需专业校验，人工意见需记录版本；候选方案生成不等于授权执行。"}],
+      "name": "自然路由冲突后等待",
+      "category": "human_review",
+      "scenarioGroup": "H01-human-review",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {
+        "eventType": "congestion",
+        "eventTypeCn": "拥堵",
+        "roadName": "新任务学校周边测试道路",
+        "avgSpeed": 8,
+        "queueLength": 160,
+        "duration": 600,
+        "isMainRoad": true,
+        "nearbySchool": true
+      },
+      "question": "继续分析学校周边拥堵和信号配时、行人安全的冲突，按声明的人工步骤处理。保留等待状态，不作人工决定。",
+      "qualityEligible": false,
+      "reviewDecision": {
+        "action": "wait"
+      },
+      "expected": {
+        "workflowStatus": "awaiting_review",
+        "requiresCandidate": false,
+        "accidentAgentSelected": false,
+        "humanReviewStatus": "pending"
+      }
+    },
+    {
+      "caseId": "H02",
+      "knowledge": [{"documentId":"new-signal-H02","chunkId":"new-signal-H02-c0","eventType":"congestion","title":"合成规范：学校周边拥堵","content":"学校周边拥堵方案应核实流量并保障行人过街。信号调整需专业校验，人工意见需记录版本；候选方案生成不等于授权执行。"}],
+      "name": "自然路由选择安全方案",
+      "category": "human_review",
+      "scenarioGroup": "H02-human-review",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {
+        "eventType": "congestion",
+        "eventTypeCn": "拥堵",
+        "roadName": "新任务学校周边测试道路",
+        "avgSpeed": 8,
+        "queueLength": 160,
+        "duration": 600,
+        "isMainRoad": true,
+        "nearbySchool": true
+      },
+      "question": "继续分析学校周边拥堵和信号配时、行人安全的冲突，按声明的人工步骤处理。确认后仅生成可审查方案，不开始Workflow执行。",
+      "qualityEligible": false,
+      "reviewDecision": {
+        "action": "select",
+        "selectedAgent": "PublicSafetyAgent"
+      },
+      "stopAfterPlanning": true,
+      "expected": {
+        "workflowStatus": "planned",
+        "requiresCandidate": false,
+        "accidentAgentSelected": false,
+        "humanReviewStatus": "accepted",
+        "analysisReuseMode": "legacy_analysis",
+        "forbiddenPlanningText": [
+          "通知信号运维单位"
+        ]
+      }
+    },
+    {
+      "caseId": "H03",
+      "knowledge": [{"documentId":"new-signal-H03","chunkId":"new-signal-H03-c0","eventType":"congestion","title":"合成规范：学校周边拥堵","content":"学校周边拥堵方案应核实流量并保障行人过街。信号调整需专业校验，人工意见需记录版本；候选方案生成不等于授权执行。"}],
+      "name": "自然路由修改与幂等确认",
+      "category": "human_review",
+      "scenarioGroup": "H03-human-review",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {
+        "eventType": "congestion",
+        "eventTypeCn": "拥堵",
+        "roadName": "新任务学校周边测试道路",
+        "avgSpeed": 8,
+        "queueLength": 160,
+        "duration": 600,
+        "isMainRoad": true,
+        "nearbySchool": true
+      },
+      "question": "继续分析学校周边拥堵和信号配时、行人安全的冲突，按声明的人工步骤处理。确认后仅生成可审查方案，不开始Workflow执行。",
+      "qualityEligible": false,
+      "reviewDecision": {
+        "action": "edit",
+        "resolution": "保留行人过街相位，信号配时调整须先核实现场条件。",
+        "repeat": true
+      },
+      "stopAfterPlanning": true,
+      "expected": {
+        "workflowStatus": "planned",
+        "requiresCandidate": false,
+        "accidentAgentSelected": false,
+        "humanReviewStatus": "accepted",
+        "analysisReuseMode": "legacy_analysis",
+        "forbiddenPlanningText": [
+          "通知信号运维单位"
+        ],
+        "requiredFinalText": [
+          "保留行人过街相位"
+        ]
+      }
+    },
+    {
+      "caseId": "H04",
+      "knowledge": [{"documentId":"new-signal-H04","chunkId":"new-signal-H04-c0","eventType":"congestion","title":"合成规范：学校周边拥堵","content":"学校周边拥堵方案应核实流量并保障行人过街。信号调整需专业校验，人工意见需记录版本；候选方案生成不等于授权执行。"}],
+      "name": "自然路由人工驳回",
+      "category": "human_review",
+      "scenarioGroup": "H04-human-review",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {
+        "eventType": "congestion",
+        "eventTypeCn": "拥堵",
+        "roadName": "新任务学校周边测试道路",
+        "avgSpeed": 8,
+        "queueLength": 160,
+        "duration": 600,
+        "isMainRoad": true,
+        "nearbySchool": true
+      },
+      "question": "继续分析学校周边拥堵和信号配时、行人安全的冲突，按声明的人工步骤处理。人工驳回后停止，不生成计划或执行动作。",
+      "qualityEligible": false,
+      "reviewDecision": {
+        "action": "reject"
+      },
+      "expected": {
+        "workflowStatus": "review_rejected",
+        "requiresCandidate": false,
+        "accidentAgentSelected": false,
+        "humanReviewStatus": "rejected"
+      }
+    },
+    {
+      "caseId": "B01",
+      "name": "内部核实任务批准与重复执行",
+      "category": "execution_boundary",
+      "scenarioGroup": "B01-execution_boundary",
+      "scenario": "approve_repeat",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {},
+      "question": "请针对伤亡和可通行车道尚未核实的问题提出一个 create_dispatch_task 候选，params 仅含 instruction，描述核实现场伤亡与可通行车道。不要声称已经派单或救援到场，实际执行必须等待审批。",
+      "qualityEligible": true,
+      "annotations": {
+        "origin": "new_synthetic_tasks_not_human_quality_labels",
+        "knownFacts": [
+          "结构化当前事件字段是本次已提供信息；历史案例和会话记忆不是本次新观测。"
+        ],
+        "unknownFacts": [
+          "未提供的伤亡、车道占用、救援到场、道路恢复和实际处置效果均未知。"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": true
+      }
+    },
+    {
+      "caseId": "B02",
+      "name": "动作审批拒绝",
+      "category": "execution_boundary",
+      "scenarioGroup": "B02-execution_boundary",
+      "scenario": "reject",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {},
+      "question": "请针对伤亡和可通行车道尚未核实的问题提出一个 create_dispatch_task 候选，params 仅含 instruction，描述核实现场伤亡与可通行车道。不要声称已经派单或救援到场，实际执行必须等待审批。",
+      "qualityEligible": true,
+      "annotations": {
+        "origin": "new_synthetic_tasks_not_human_quality_labels",
+        "knownFacts": [
+          "结构化当前事件字段是本次已提供信息；历史案例和会话记忆不是本次新观测。"
+        ],
+        "unknownFacts": [
+          "未提供的伤亡、车道占用、救援到场、道路恢复和实际处置效果均未知。"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "rejected",
+        "requiresCandidate": true
+      }
+    },
+    {
+      "caseId": "B03",
+      "name": "审批期间资料变化",
+      "category": "execution_boundary",
+      "scenarioGroup": "B03-execution_boundary",
+      "scenario": "facts_changed",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {},
+      "question": "请针对伤亡和可通行车道尚未核实的问题提出一个 create_dispatch_task 候选，params 仅含 instruction，描述核实现场伤亡与可通行车道。不要声称已经派单或救援到场，实际执行必须等待审批。",
+      "qualityEligible": true,
+      "annotations": {
+        "origin": "new_synthetic_tasks_not_human_quality_labels",
+        "knownFacts": [
+          "结构化当前事件字段是本次已提供信息；历史案例和会话记忆不是本次新观测。"
+        ],
+        "unknownFacts": [
+          "未提供的伤亡、车道占用、救援到场、道路恢复和实际处置效果均未知。"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "failed",
+        "requiresCandidate": true
+      }
+    },
+    {
+      "caseId": "B04",
+      "name": "知识查询异常后的安全结束",
+      "category": "tool_failure",
+      "scenarioGroup": "B04-tool_failure",
+      "scenario": "normal",
+      "entryPoint": "routed_api",
+      "bindRoad": true,
+      "event": {
+        "weather": "rain"
+      },
+      "question": "请查询一次雨天专项知识。若查询异常，明确说明缺失信息，依照已有通用证据保守结束，不要持续重试或假装取得了资料。 区分已知事实与待核实事项，引用实际可用证据，不声称已完成现实处置。本题不要求创建业务动作。",
+      "qualityEligible": true,
+      "annotations": {
+        "origin": "new_synthetic_tasks_not_human_quality_labels",
+        "knownFacts": [
+          "结构化当前事件字段是本次已提供信息；历史案例和会话记忆不是本次新观测。"
+        ],
+        "unknownFacts": [
+          "未提供的伤亡、车道占用、救援到场、道路恢复和实际处置效果均未知。"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false,
+        "requiredToolAttempts": [
+          "accident_knowledge_search"
+        ],
+        "allowedToolErrors": [
+          "tool_execution_failed"
+        ]
+      },
+      "toolFault": {
+        "tool": "accident_knowledge_search",
+        "code": "tool_execution_failed"
+      }
+    }
+  ]
+}
+

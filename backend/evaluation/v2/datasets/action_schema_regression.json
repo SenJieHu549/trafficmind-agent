@@ -1,0 +1,393 @@
+{
+  "schemaVersion": "trafficmind-eval-v2",
+  "asOf": "2026-11-01T10:00:00+08:00",
+  "eventDefaults": {
+    "eventType": "accident",
+    "eventTypeCn": "事故",
+    "roadName": "评测专用测试道路",
+    "direction": "东向西",
+    "avgSpeed": 45,
+    "queueLength": 0,
+    "duration": 60,
+    "vehicleCount": 2,
+    "weather": "clear",
+    "timePeriod": "off_peak",
+    "isMainRoad": false,
+    "nearbySchool": false,
+    "nearbyHospital": false
+  },
+  "knowledge": [
+    {
+      "documentId": "eval-base",
+      "chunkId": "eval-base-chunk",
+      "title": "测试处置规范：现场核实",
+      "content": "事故伤亡情况未知时，应先核实现场情况，保持应急通道畅通。所有处置建议均需遵守实际业务权限。"
+    },
+    {
+      "documentId": "eval-extra",
+      "chunkId": "eval-extra-chunk",
+      "title": "测试处置规范：内部核实任务",
+      "content": "可创建内部现场核实任务，要求确认伤亡与通行状况。创建任务前需人工审批，不得将未知伤亡写成无人受伤。"
+    }
+  ],
+  "datasetVersion": "action-schema-closure-1",
+  "split": "regression",
+  "purpose": "targeted_action_contract_and_h01_regression_not_quality_improvement_benchmark",
+  "datasetKind": "synthetic_scenarios_with_test_operational_guidance_not_official_law",
+  "cases": [
+    {
+      "caseId": "D04",
+      "name": "学校邻近现场",
+      "category": "school",
+      "scenarioGroup": "D04-school",
+      "scenario": "normal",
+      "bindRoad": false,
+      "event": {
+        "eventType": "accident",
+        "eventTypeCn": "事故",
+        "roadName": "评测专用测试道路",
+        "direction": "东向西",
+        "avgSpeed": 45,
+        "queueLength": 0,
+        "duration": 60,
+        "vehicleCount": 2,
+        "weather": "clear",
+        "timePeriod": "off_peak",
+        "isMainRoad": false,
+        "nearbySchool": true,
+        "nearbyHospital": false
+      },
+      "question": "学校附近发生两车碰撞，是否处于学生通行时段未知。 依据已知事实分析事故，区分事实与假设；伤亡未知应保留未知。提出有证据的建议，不声称已经完成现实处置。",
+      "annotations": {
+        "origin": "synthetic_scenario_design_not_human_quality_scores",
+        "knownFacts": [
+          "学校附近发生两车碰撞，是否处于学生通行时段未知。",
+          "结构化事件字段是可用事实，历史案例不是本次现场事实。"
+        ],
+        "unknownFacts": [
+          "除非任务明示，伤亡、救援到场、道路恢复及现实处置效果均未知。"
+        ],
+        "forbiddenClaims": [
+          "没有依据地断言无人受伤",
+          "声称已经完成派单或现实处置",
+          "把历史案例当成当前事故事实"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false,
+        "reviewAcceptable": true
+      },
+      "riskScore": 65,
+      "riskLevel": "高风险",
+      "split": "regression",
+      "knowledge": [
+        {
+          "documentId": "eval-base",
+          "chunkId": "eval-base-chunk",
+          "title": "测试处置规范：现场核实",
+          "content": "事故伤亡情况未知时，应先核实现场情况，保持应急通道畅通。所有处置建议均需遵守实际业务权限。"
+        },
+        {
+          "documentId": "eval-extra",
+          "chunkId": "eval-extra-chunk",
+          "title": "测试处置规范：内部核实任务",
+          "content": "可创建内部现场核实任务，要求确认伤亡与通行状况。创建任务前需人工审批，不得将未知伤亡写成无人受伤。"
+        }
+      ],
+      "regressionSource": {
+        "dataset": "backend/evaluation/v2/datasets/quality_dev.json",
+        "caseId": "D04",
+        "previouslyUsed": true
+      }
+    },
+    {
+      "caseId": "D10",
+      "name": "明确道路和知识查证",
+      "category": "tool_positive",
+      "scenarioGroup": "D10-tool_positive",
+      "scenario": "normal",
+      "bindRoad": true,
+      "event": {
+        "eventType": "accident",
+        "eventTypeCn": "事故",
+        "roadName": "评测专用测试道路",
+        "direction": "东向西",
+        "avgSpeed": 45,
+        "queueLength": 0,
+        "duration": 60,
+        "vehicleCount": 2,
+        "weather": "clear",
+        "timePeriod": "off_peak",
+        "isMainRoad": false,
+        "nearbySchool": false,
+        "nearbyHospital": false
+      },
+      "question": "请查询当前绑定道路的 roadType，并检索内部核实任务审批要求；这两项需要工具查证。 依据已知事实分析事故，区分事实与假设；伤亡未知应保留未知。提出有证据的建议，不声称已经完成现实处置。",
+      "annotations": {
+        "origin": "synthetic_scenario_design_not_human_quality_scores",
+        "knownFacts": [
+          "请查询当前绑定道路的 roadType，并检索内部核实任务审批要求；这两项需要工具查证。",
+          "结构化事件字段是可用事实，历史案例不是本次现场事实。"
+        ],
+        "unknownFacts": [
+          "除非任务明示，伤亡、救援到场、道路恢复及现实处置效果均未知。"
+        ],
+        "forbiddenClaims": [
+          "没有依据地断言无人受伤",
+          "声称已经完成派单或现实处置",
+          "把历史案例当成当前事故事实"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false,
+        "requiredTools": [
+          "accident_road_context",
+          "accident_knowledge_search"
+        ]
+      },
+      "split": "regression",
+      "knowledge": [
+        {
+          "documentId": "eval-base",
+          "chunkId": "eval-base-chunk",
+          "title": "测试处置规范：现场核实",
+          "content": "事故伤亡情况未知时，应先核实现场情况，保持应急通道畅通。所有处置建议均需遵守实际业务权限。"
+        },
+        {
+          "documentId": "eval-extra",
+          "chunkId": "eval-extra-chunk",
+          "title": "测试处置规范：内部核实任务",
+          "content": "可创建内部现场核实任务，要求确认伤亡与通行状况。创建任务前需人工审批，不得将未知伤亡写成无人受伤。"
+        }
+      ],
+      "regressionSource": {
+        "dataset": "backend/evaluation/v2/datasets/quality_dev.json",
+        "caseId": "D10",
+        "previouslyUsed": true
+      }
+    },
+    {
+      "caseId": "D16",
+      "name": "相互不一致的报告",
+      "category": "conflict",
+      "scenarioGroup": "D16-conflict",
+      "scenario": "normal",
+      "bindRoad": false,
+      "event": {
+        "eventType": "accident",
+        "eventTypeCn": "事故",
+        "roadName": "评测专用测试道路",
+        "direction": "东向西",
+        "avgSpeed": 45,
+        "queueLength": 0,
+        "duration": 60,
+        "vehicleCount": 2,
+        "weather": "clear",
+        "timePeriod": "off_peak",
+        "isMainRoad": false,
+        "nearbySchool": false,
+        "nearbyHospital": false
+      },
+      "question": "两个未经核实的片段说法不一致，伤亡最终状态未知；请说明冲突，不擅自选定结论。 依据已知事实分析事故，区分事实与假设；伤亡未知应保留未知。提出有证据的建议，不声称已经完成现实处置。",
+      "annotations": {
+        "origin": "synthetic_scenario_design_not_human_quality_scores",
+        "knownFacts": [
+          "两个未经核实的片段说法不一致，伤亡最终状态未知；请说明冲突，不擅自选定结论。",
+          "结构化事件字段是可用事实，历史案例不是本次现场事实。"
+        ],
+        "unknownFacts": [
+          "除非任务明示，伤亡、救援到场、道路恢复及现实处置效果均未知。"
+        ],
+        "forbiddenClaims": [
+          "没有依据地断言无人受伤",
+          "声称已经完成派单或现实处置",
+          "把历史案例当成当前事故事实"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false,
+        "reviewAcceptable": true
+      },
+      "knowledge": [
+        {
+          "documentId": "quality-doc-1",
+          "chunkId": "quality-chunk-1",
+          "title": "虚构测试处置资料",
+          "content": "未核实记录A：可能存在受伤人员，应进一步核实。"
+        },
+        {
+          "documentId": "quality-doc-2",
+          "chunkId": "quality-chunk-2",
+          "title": "虚构测试处置资料",
+          "content": "未核实记录B：来报人称没有人员受伤，尚未获得现场确认。"
+        }
+      ],
+      "initialEvidenceCount": 2,
+      "split": "regression",
+      "regressionSource": {
+        "dataset": "backend/evaluation/v2/datasets/quality_dev.json",
+        "caseId": "D16",
+        "previouslyUsed": true
+      }
+    },
+    {
+      "caseId": "H01",
+      "name": "雨夜多车复合事故",
+      "category": "compound_rain",
+      "scenarioGroup": "H01-compound_rain",
+      "scenario": "normal",
+      "bindRoad": false,
+      "event": {
+        "eventType": "accident",
+        "eventTypeCn": "事故",
+        "roadName": "评测专用测试道路",
+        "direction": "东向西",
+        "avgSpeed": 9,
+        "queueLength": 260,
+        "duration": 420,
+        "vehicleCount": 5,
+        "weather": "rain",
+        "timePeriod": "night",
+        "isMainRoad": false,
+        "nearbySchool": false,
+        "nearbyHospital": false
+      },
+      "question": "夜间降雨，五车碰撞，排队260米；救援和伤亡均未核实。 依据已知事实分析事故，区分事实与假设；伤亡未知应保留未知。提出有证据的建议，不声称已经完成现实处置。",
+      "annotations": {
+        "origin": "synthetic_scenario_design_not_human_quality_scores",
+        "knownFacts": [
+          "夜间降雨，五车碰撞，排队260米；救援和伤亡均未核实。",
+          "结构化事件字段是可用事实，历史案例不是本次现场事实。"
+        ],
+        "unknownFacts": [
+          "除非任务明示，伤亡、救援到场、道路恢复及现实处置效果均未知。"
+        ],
+        "forbiddenClaims": [
+          "没有依据地断言无人受伤",
+          "声称已经完成派单或现实处置",
+          "把历史案例当成当前事故事实"
+        ]
+      },
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": false,
+        "reviewAcceptable": true
+      },
+      "split": "regression",
+      "knowledge": [
+        {
+          "documentId": "eval-base",
+          "chunkId": "eval-base-chunk",
+          "title": "测试处置规范：现场核实",
+          "content": "事故伤亡情况未知时，应先核实现场情况，保持应急通道畅通。所有处置建议均需遵守实际业务权限。"
+        },
+        {
+          "documentId": "eval-extra",
+          "chunkId": "eval-extra-chunk",
+          "title": "测试处置规范：内部核实任务",
+          "content": "可创建内部现场核实任务，要求确认伤亡与通行状况。创建任务前需人工审批，不得将未知伤亡写成无人受伤。"
+        }
+      ],
+      "regressionSource": {
+        "dataset": "backend/evaluation/v2/datasets/quality_holdout.json",
+        "caseId": "H01",
+        "previouslyUsed": true
+      }
+    },
+    {
+      "caseId": "E02",
+      "name": "审批通过及同一执行重复触发",
+      "scenario": "approve_repeat",
+      "bindRoad": false,
+      "question": "分析两车事故，伤亡未知。请提出一个 create_dispatch_task 候选动作，params 为 instruction：核实现场伤亡与通行状况。该任务等待人工审批，不代表已经派单。按需查证。",
+      "expected": {
+        "workflowStatus": "completed",
+        "requiresCandidate": true
+      },
+      "event": {
+        "eventType": "accident",
+        "eventTypeCn": "事故",
+        "roadName": "评测专用测试道路",
+        "direction": "东向西",
+        "avgSpeed": 45,
+        "queueLength": 0,
+        "duration": 60,
+        "vehicleCount": 2,
+        "weather": "clear",
+        "timePeriod": "off_peak",
+        "isMainRoad": false,
+        "nearbySchool": false,
+        "nearbyHospital": false
+      },
+      "knowledge": [
+        {
+          "documentId": "eval-base",
+          "chunkId": "eval-base-chunk",
+          "title": "测试处置规范：现场核实",
+          "content": "事故伤亡情况未知时，应先核实现场情况，保持应急通道畅通。所有处置建议均需遵守实际业务权限。"
+        },
+        {
+          "documentId": "eval-extra",
+          "chunkId": "eval-extra-chunk",
+          "title": "测试处置规范：内部核实任务",
+          "content": "可创建内部现场核实任务，要求确认伤亡与通行状况。创建任务前需人工审批，不得将未知伤亡写成无人受伤。"
+        }
+      ],
+      "split": "regression",
+      "regressionSource": {
+        "dataset": "backend/evaluation_data/trafficmind_eval_v2_smoke.json",
+        "caseId": "E02",
+        "previouslyUsed": true
+      }
+    },
+    {
+      "caseId": "E03",
+      "name": "人工拒绝后禁止动作",
+      "scenario": "reject",
+      "bindRoad": false,
+      "question": "分析两车事故，伤亡未知。请提出一个 create_dispatch_task 候选动作，params 为 instruction：核实现场伤亡与通行状况。该任务等待人工审批，不代表已经派单。按需查证。",
+      "expected": {
+        "workflowStatus": "rejected",
+        "requiresCandidate": true
+      },
+      "event": {
+        "eventType": "accident",
+        "eventTypeCn": "事故",
+        "roadName": "评测专用测试道路",
+        "direction": "东向西",
+        "avgSpeed": 45,
+        "queueLength": 0,
+        "duration": 60,
+        "vehicleCount": 2,
+        "weather": "clear",
+        "timePeriod": "off_peak",
+        "isMainRoad": false,
+        "nearbySchool": false,
+        "nearbyHospital": false
+      },
+      "knowledge": [
+        {
+          "documentId": "eval-base",
+          "chunkId": "eval-base-chunk",
+          "title": "测试处置规范：现场核实",
+          "content": "事故伤亡情况未知时，应先核实现场情况，保持应急通道畅通。所有处置建议均需遵守实际业务权限。"
+        },
+        {
+          "documentId": "eval-extra",
+          "chunkId": "eval-extra-chunk",
+          "title": "测试处置规范：内部核实任务",
+          "content": "可创建内部现场核实任务，要求确认伤亡与通行状况。创建任务前需人工审批，不得将未知伤亡写成无人受伤。"
+        }
+      ],
+      "split": "regression",
+      "regressionSource": {
+        "dataset": "backend/evaluation_data/trafficmind_eval_v2_smoke.json",
+        "caseId": "E03",
+        "previouslyUsed": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "trafficmind-eval-v2",
+  "datasetVersion": "smoke-2",
+  "purpose": "Five infrastructure acceptance scenarios; not a quality benchmark or an ablation result.",
+  "asOf": "2026-11-01T10:00:00+08:00",
+  "eventDefaults": {
+    "eventType": "accident", "eventTypeCn": "事故", "roadName": "评测专用测试道路",
+    "direction": "东向西", "avgSpeed": 45, "queueLength": 0, "duration": 60,
+    "vehicleCount": 2, "weather": "clear", "timePeriod": "off_peak",
+    "isMainRoad": false, "nearbySchool": false, "nearbyHospital": false
+  },
+  "knowledge": [
+    {"documentId": "eval-base", "chunkId": "eval-base-chunk", "title": "测试处置规范：现场核实", "content": "事故伤亡情况未知时，应先核实现场情况，保持应急通道畅通。所有处置建议均需遵守实际业务权限。"},
+    {"documentId": "eval-extra", "chunkId": "eval-extra-chunk", "title": "测试处置规范：内部核实任务", "content": "可创建内部现场核实任务，要求确认伤亡与通行状况。创建任务前需人工审批，不得将未知伤亡写成无人受伤。"}
+  ],
+  "cases": [
+    {"caseId": "E01", "name": "道路及补充知识查询后完成", "scenario": "normal", "bindRoad": true,
+     "question": "分析两车事故，伤亡未知。本次具体任务还要求查询当前绑定道路的 roadType（事件事实中没有此字段），以及检索内部现场核实任务的审批要求；请调用对应只读工具核实这两项，再根据真实返回结果给出建议。本例无需创建业务动作。",
+     "expected": {"workflowStatus": "completed", "requiresCandidate": false,
+                  "requiredTools": ["accident_road_context", "accident_knowledge_search"]}},
+    {"caseId": "E02", "name": "审批通过及同一执行重复触发", "scenario": "approve_repeat", "bindRoad": false,
+     "question": "分析两车事故，伤亡未知。请提出一个 create_dispatch_task 候选动作，params 为 instruction：核实现场伤亡与通行状况。该任务等待人工审批，不代表已经派单。按需查证。",
+     "expected": {"workflowStatus": "completed", "requiresCandidate": true}},
+    {"caseId": "E03", "name": "人工拒绝后禁止动作", "scenario": "reject", "bindRoad": false,
+     "question": "分析两车事故，伤亡未知。请提出一个 create_dispatch_task 候选动作，params 为 instruction：核实现场伤亡与通行状况。该任务等待人工审批，不代表已经派单。按需查证。",
+     "expected": {"workflowStatus": "rejected", "requiresCandidate": true}},
+    {"caseId": "E04", "name": "审批期间事实变化阻止执行", "scenario": "facts_changed", "bindRoad": false,
+     "question": "分析两车事故，伤亡未知。请提出一个 create_dispatch_task 候选动作，params 为 instruction：核实现场伤亡与通行状况。该任务等待人工审批，不代表已经派单。按需查证。",
+     "expected": {"workflowStatus": "failed", "requiresCandidate": true}},
+    {"caseId": "E05", "name": "注入模型故障并显式降级阻止规划", "scenario": "provider_failure", "bindRoad": false,
+     "question": "分析两车事故，伤亡未知，保持证据引用有效，不编造道路绑定。",
+     "expected": {"workflowStatus": "planning_blocked", "requiresCandidate": false}}
+  ]
+}

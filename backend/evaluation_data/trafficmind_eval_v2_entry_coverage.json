@@ -1,0 +1,91 @@
+{
+  "schemaVersion": "trafficmind-eval-v2",
+  "datasetVersion": "entry-coverage-1",
+  "purpose": "Offline acceptance of routed HTTP entry, real Memory V2 delivery and human review continuation; not model quality or retrieval accuracy.",
+  "asOf": "2026-11-01T10:00:00+08:00",
+  "eventDefaults": {
+    "eventType": "accident", "eventTypeCn": "事故", "roadName": "评测专用测试道路",
+    "direction": "东向西", "avgSpeed": 45, "queueLength": 0, "duration": 60,
+    "vehicleCount": 2, "weather": "clear", "timePeriod": "off_peak",
+    "isMainRoad": false, "nearbySchool": false, "nearbyHospital": false
+  },
+  "knowledge": [
+    {"documentId": "eval-base", "chunkId": "eval-base-chunk", "title": "测试处置规范", "content": "保持应急通道畅通，伤亡情况未知时应先核实。方案选择不等于外部动作授权。"}
+  ],
+  "cases": [
+    {
+      "caseId": "M01", "name": "续接会话记忆进入角色与实际模型请求", "scenario": "normal", "entryPoint": "routed_api", "bindRoad": true,
+      "question": "继续研判当前事故，核实伤亡与通行情况。", "contextPolicy": "continue_event",
+      "memoryItems": [
+        {"item_id": "memory-access", "memory_type": "constraint", "memory_key": "constraint.access", "status": "active", "value": {"text": "Keep emergency access available."}},
+        {"item_id": "memory-foreign-session", "fixtureScope": "foreign_session", "memory_type": "constraint", "memory_key": "constraint.foreign", "status": "active", "value": {"text": "Foreign session data"}},
+        {"item_id": "memory-foreign-thread", "fixtureScope": "foreign_thread", "memory_type": "constraint", "memory_key": "constraint.other", "status": "active", "value": {"text": "Foreign event thread data"}},
+        {"item_id": "memory-expired", "memory_type": "constraint", "memory_key": "constraint.old", "status": "active", "valid_until": "2000-01-01T00:00:00Z", "value": {"text": "Expired data"}},
+        {"item_id": "memory-candidate", "memory_type": "constraint", "memory_key": "constraint.candidate", "status": "candidate", "value": {"text": "Unconfirmed data"}}
+      ],
+      "expected": {"workflowStatus": "completed", "requiresCandidate": false,
+        "requiredMemoryIds": {"AccidentAgent": ["memory-access"]},
+        "forbiddenMemoryIds": ["memory-foreign-session", "memory-foreign-thread", "memory-expired", "memory-candidate"]}
+    },
+    {
+      "caseId": "M02", "name": "明确新事件不沿用旧线程记忆", "scenario": "normal", "entryPoint": "routed_api", "bindRoad": true,
+      "question": "新的问题，分析当前事故的伤亡与通行情况。", "contextPolicy": "fresh_event",
+      "memoryItems": [
+        {"item_id": "memory-old-thread", "memory_type": "constraint", "memory_key": "constraint.old", "status": "active", "value": {"text": "Previous task constraint"}}
+      ],
+      "expected": {"workflowStatus": "completed", "requiresCandidate": false, "memoryMustBeEmpty": true, "forbiddenMemoryIds": ["memory-old-thread"]}
+    },
+    {
+      "caseId": "R01", "name": "进入人工等待时不误判为规划失败", "scenario": "normal", "entryPoint": "routed_api", "bindRoad": true,
+      "question": "继续分析当前事故和信号、行人过街的意见冲突。",
+      "selectedAgents": ["AccidentAgent", "SignalAgent", "PublicSafetyAgent"],
+      "roleFixtures": {
+        "SignalAgent": {"findings": ["信号配时建议延长机动车绿灯"], "suggestion": "延长机动车绿灯20秒", "confidence": 0.8, "urgency": "high", "proposed_actions": [{"actionType": "notify_dingtalk"}]},
+        "PublicSafetyAgent": {"findings": ["行人过街安全需要保障"], "suggestion": "保持行人过街相位", "confidence": 0.8, "urgency": "high"}
+      },
+      "reviewDecision": {"action": "wait"},
+      "expected": {"workflowStatus": "awaiting_review", "requiresCandidate": false, "humanReviewStatus": "pending"}
+    },
+    {
+      "caseId": "R02", "name": "选择冻结方案后仅恢复融合并进入Planning", "scenario": "normal", "entryPoint": "routed_api", "bindRoad": true,
+      "question": "继续分析当前事故和信号、行人过街的意见冲突。",
+      "selectedAgents": ["AccidentAgent", "SignalAgent", "PublicSafetyAgent"],
+      "roleFixtures": {
+        "SignalAgent": {"findings": ["信号配时建议延长机动车绿灯"], "suggestion": "延长机动车绿灯20秒", "confidence": 0.8, "urgency": "high", "proposed_actions": [{"actionType": "notify_dingtalk"}]},
+        "PublicSafetyAgent": {"findings": ["行人过街安全需要保障"], "suggestion": "保持行人过街相位", "confidence": 0.8, "urgency": "high"}
+      },
+      "reviewDecision": {"action": "select", "selectedAgent": "PublicSafetyAgent"},
+      "expected": {"workflowStatus": "completed", "requiresCandidate": false, "humanReviewStatus": "accepted",
+        "requiredFinalText": ["保持行人过街相位", "保持应急通道畅通", "伤亡情况未知"],
+        "forbiddenPlanningText": ["延长机动车绿灯20秒", "notify_dingtalk"]}
+    },
+    {
+      "caseId": "R03", "name": "人工修改及重复确认保留记忆与独立要求", "scenario": "normal", "entryPoint": "routed_api", "bindRoad": true,
+      "question": "继续分析当前事故和信号、行人过街的意见冲突。",
+      "selectedAgents": ["AccidentAgent", "SignalAgent", "PublicSafetyAgent"],
+      "memoryItems": [
+        {"item_id": "review-memory", "memory_type": "constraint", "memory_key": "constraint.access", "status": "active", "value": {"text": "Keep emergency access available."}}
+      ],
+      "roleFixtures": {
+        "SignalAgent": {"findings": ["信号配时建议延长机动车绿灯"], "suggestion": "延长机动车绿灯20秒", "confidence": 0.8, "urgency": "high", "proposed_actions": [{"actionType": "notify_dingtalk"}]},
+        "PublicSafetyAgent": {"findings": ["行人过街安全需要保障"], "suggestion": "保持行人过街相位", "confidence": 0.8, "urgency": "high"}
+      },
+      "reviewDecision": {"action": "edit", "resolution": "保持行人过街相位，暂缓机动车延长方案。", "repeat": true},
+      "expected": {"workflowStatus": "completed", "requiresCandidate": false, "humanReviewStatus": "accepted",
+        "requiredMemoryIds": {"AccidentAgent": ["review-memory"]},
+        "requiredFinalText": ["暂缓机动车延长方案", "保持应急通道畅通", "伤亡情况未知"],
+        "forbiddenPlanningText": ["延长机动车绿灯20秒", "notify_dingtalk"]}
+    },
+    {
+      "caseId": "R04", "name": "人工驳回不生成计划与动作", "scenario": "normal", "entryPoint": "routed_api", "bindRoad": true,
+      "question": "继续分析当前事故和信号、行人过街的意见冲突。",
+      "selectedAgents": ["AccidentAgent", "SignalAgent", "PublicSafetyAgent"],
+      "roleFixtures": {
+        "SignalAgent": {"findings": ["信号配时建议延长机动车绿灯"], "suggestion": "延长机动车绿灯20秒", "confidence": 0.8, "urgency": "high"},
+        "PublicSafetyAgent": {"findings": ["行人过街安全需要保障"], "suggestion": "保持行人过街相位", "confidence": 0.8, "urgency": "high"}
+      },
+      "reviewDecision": {"action": "reject"},
+      "expected": {"workflowStatus": "review_rejected", "requiresCandidate": false, "humanReviewStatus": "rejected"}
+    }
+  ]
+}

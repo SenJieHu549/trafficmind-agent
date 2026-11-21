@@ -1,0 +1,260 @@
+[
+  {
+    "intersectionId": "SHU_BS_INT_HUIFENG_JUFENGYUAN",
+    "regionId": "SHU_BAOSHAN_001",
+    "name": "汇丰路 × 聚丰园路",
+    "aliases": [
+      "汇丰路聚丰园路路口",
+      "聚丰园路汇丰路路口",
+      "聚丰园路 × 汇丰路",
+      "汇丰路与聚丰园路路口",
+      "聚丰园路与汇丰路路口"
+    ],
+    "longitude": 121.3828639,
+    "latitude": 31.3169245,
+    "status": "active",
+    "importance": "normal",
+    "metadata": {
+      "osmNodeIds": [
+        "6544942349"
+      ],
+      "coordinateNodeId": "6544942349",
+      "connectedRoadIds": [
+        "SHU_BS_RD_HUIFENG",
+        "SHU_BS_RD_JUFENGYUAN"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "coordinateSystem": "WGS84",
+      "coordinatePrecision": "open_geo_approximate",
+      "sourceBoundary": "Canonical display point uses one actual shared OSM road node, not a computed road centroid or surveyed intersection center."
+    },
+    "sourceType": "open_geo",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "intersectionId": "SHU_BS_INT_JINQIU_HUIFENG",
+    "regionId": "SHU_BAOSHAN_001",
+    "name": "锦秋路 × 汇丰路",
+    "aliases": [
+      "锦秋路汇丰路路口",
+      "汇丰路锦秋路路口",
+      "汇丰路 × 锦秋路",
+      "锦秋路与汇丰路路口",
+      "汇丰路与锦秋路路口"
+    ],
+    "longitude": 121.3823849,
+    "latitude": 31.3219872,
+    "status": "active",
+    "importance": "normal",
+    "metadata": {
+      "osmNodeIds": [
+        "6542701484",
+        "12303931852"
+      ],
+      "coordinateNodeId": "6542701484",
+      "connectedRoadIds": [
+        "SHU_BS_RD_JINQIU",
+        "SHU_BS_RD_HUIFENG"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "coordinateSystem": "WGS84",
+      "coordinatePrecision": "open_geo_approximate",
+      "sourceBoundary": "Canonical display point uses one actual shared OSM road node, not a computed road centroid or surveyed intersection center."
+    },
+    "sourceType": "open_geo",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "intersectionId": "SHU_BS_INT_JINQIU_HUTAI",
+    "regionId": "SHU_BAOSHAN_001",
+    "name": "锦秋路 × 沪太路",
+    "aliases": [
+      "锦秋路沪太路路口",
+      "沪太路锦秋路路口",
+      "沪太路 × 锦秋路",
+      "锦秋路与沪太路路口",
+      "沪太路与锦秋路路口"
+    ],
+    "longitude": 121.4027308,
+    "latitude": 31.3230321,
+    "status": "active",
+    "importance": "normal",
+    "metadata": {
+      "osmNodeIds": [
+        "622397113",
+        "622397167",
+        "622397168",
+        "4086665089"
+      ],
+      "coordinateNodeId": "622397113",
+      "connectedRoadIds": [
+        "SHU_BS_RD_JINQIU",
+        "SHU_BS_RD_HUTAI"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "coordinateSystem": "WGS84",
+      "coordinatePrecision": "open_geo_approximate",
+      "sourceBoundary": "Canonical display point uses one actual shared OSM road node, not a computed road centroid or surveyed intersection center."
+    },
+    "sourceType": "open_geo",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "intersectionId": "SHU_BS_INT_JINQIU_NANCHEN",
+    "regionId": "SHU_BAOSHAN_001",
+    "name": "锦秋路 × 南陈路",
+    "aliases": [
+      "锦秋路南陈路路口",
+      "南陈路锦秋路路口",
+      "南陈路 × 锦秋路",
+      "锦秋路与南陈路路口",
+      "南陈路与锦秋路路口"
+    ],
+    "longitude": 121.3925501,
+    "latitude": 31.3230942,
+    "status": "active",
+    "importance": "normal",
+    "metadata": {
+      "osmNodeIds": [
+        "622387696",
+        "622397130"
+      ],
+      "coordinateNodeId": "622387696",
+      "connectedRoadIds": [
+        "SHU_BS_RD_JINQIU",
+        "SHU_BS_RD_NANCHEN"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "coordinateSystem": "WGS84",
+      "coordinatePrecision": "open_geo_approximate",
+      "sourceBoundary": "Canonical display point uses one actual shared OSM road node, not a computed road centroid or surveyed intersection center."
+    },
+    "sourceType": "open_geo",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "intersectionId": "SHU_BS_INT_SHANGDA_HUIFENG",
+    "regionId": "SHU_BAOSHAN_001",
+    "name": "上大路 × 汇丰路",
+    "aliases": [
+      "上大路汇丰路路口",
+      "汇丰路上大路路口",
+      "汇丰路 × 上大路",
+      "上大路与汇丰路路口",
+      "汇丰路与上大路路口"
+    ],
+    "longitude": 121.3832309,
+    "latitude": 31.3129422,
+    "status": "active",
+    "importance": "normal",
+    "metadata": {
+      "osmNodeIds": [
+        "6542707785"
+      ],
+      "coordinateNodeId": "6542707785",
+      "connectedRoadIds": [
+        "SHU_BS_RD_SHANGDA",
+        "SHU_BS_RD_HUIFENG"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "coordinateSystem": "WGS84",
+      "coordinatePrecision": "open_geo_approximate",
+      "sourceBoundary": "Canonical display point uses one actual shared OSM road node, not a computed road centroid or surveyed intersection center."
+    },
+    "sourceType": "open_geo",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "intersectionId": "SHU_BS_INT_SHANGDA_HUTAI",
+    "regionId": "SHU_BAOSHAN_001",
+    "name": "上大路 × 沪太路",
+    "aliases": [
+      "上大路沪太路路口",
+      "沪太路上大路路口",
+      "沪太路 × 上大路",
+      "上大路与沪太路路口",
+      "沪太路与上大路路口"
+    ],
+    "longitude": 121.40454,
+    "latitude": 31.315422,
+    "status": "active",
+    "importance": "normal",
+    "metadata": {
+      "osmNodeIds": [
+        "622387961",
+        "622388191"
+      ],
+      "coordinateNodeId": "622387961",
+      "connectedRoadIds": [
+        "SHU_BS_RD_SHANGDA",
+        "SHU_BS_RD_HUTAI"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "coordinateSystem": "WGS84",
+      "coordinatePrecision": "open_geo_approximate",
+      "sourceBoundary": "Canonical display point uses one actual shared OSM road node, not a computed road centroid or surveyed intersection center."
+    },
+    "sourceType": "open_geo",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "intersectionId": "SHU_BS_INT_SHANGDA_NANCHEN",
+    "regionId": "SHU_BAOSHAN_001",
+    "name": "上大路 × 南陈路",
+    "aliases": [
+      "上大路南陈路路口",
+      "南陈路上大路路口",
+      "南陈路 × 上大路",
+      "上大路与南陈路路口",
+      "南陈路与上大路路口"
+    ],
+    "longitude": 121.3932825,
+    "latitude": 31.3135107,
+    "status": "active",
+    "importance": "normal",
+    "metadata": {
+      "osmNodeIds": [
+        "8983186639"
+      ],
+      "coordinateNodeId": "8983186639",
+      "connectedRoadIds": [
+        "SHU_BS_RD_SHANGDA",
+        "SHU_BS_RD_NANCHEN"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "coordinateSystem": "WGS84",
+      "coordinatePrecision": "open_geo_approximate",
+      "sourceBoundary": "Canonical display point uses one actual shared OSM road node, not a computed road centroid or surveyed intersection center."
+    },
+    "sourceType": "open_geo",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  }
+]

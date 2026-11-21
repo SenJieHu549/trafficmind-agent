@@ -1,0 +1,39 @@
+{
+  "snapshotDate": "2026-11-11",
+  "sources": [
+    {
+      "sourceId": "SRC_OSM_SHU_BAOSHAN_20261111",
+      "title": "OpenStreetMap API bounded road snapshot near SHU Baoshan",
+      "sourceUrl": "https://www.openstreetmap.org/api/0.6/map?bbox=121.380,31.305,121.410,31.330",
+      "organization": "OpenStreetMap contributors",
+      "retrievedAt": "2026-11-11",
+      "coordinateSystem": "WGS84",
+      "license": "ODbL-1.0",
+      "rawSha256": "344528965a09058dc80df8bee4aed9a7efd8c6303327fdf12946c31cbc21d86c",
+      "rawSnapshot": "source_snapshot/osm_roads.json",
+      "verificationNotes": "Intersections derived only from shared node IDs of two listed named roads; coordinates are exact source values but approximate map locations."
+    },
+    {
+      "sourceId": "SRC_SHU_CONTACT",
+      "title": "上海大学访客页面",
+      "sourceUrl": "https://www.shu.edu.cn/fk.htm",
+      "sourceType": "first_party",
+      "factsUsed": [
+        "宝山校区地址为上大路99号"
+      ]
+    },
+    {
+      "sourceId": "SRC_SHU_SECURITY_20260828",
+      "title": "上海大学2026级新生入校交通提示",
+      "sourceUrl": "https://baoweichu.shu.edu.cn/info/1061/12631.htm",
+      "publishedAt": "2026-08-28",
+      "sourceType": "first_party",
+      "factsUsed": [
+        "上大路99号、锦秋路716号、南陈路380号的校区出入口地址"
+      ],
+      "excludedClaims": [
+        "临时报到停车安排、地铁出入口施工状态不作为长期通行规则导入"
+      ]
+    }
+  ]
+}

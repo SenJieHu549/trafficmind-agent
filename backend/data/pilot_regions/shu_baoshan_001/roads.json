@@ -1,0 +1,192 @@
+[
+  {
+    "roadId": "SHU_BS_RD_SHANGDA",
+    "regionId": "SHU_BAOSHAN_001",
+    "name": "上大路",
+    "status": "active",
+    "roadType": "tertiary",
+    "aliases": [],
+    "metadata": {
+      "osmWayIds": [
+        "49050174",
+        "341779270",
+        "341779272",
+        "341779273",
+        "1131957520",
+        "1131957521",
+        "1131957526",
+        "1271083333"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "coordinateSystem": "WGS84",
+      "sourceBoundary": "Bounded OSM road-name inventory; no official road classification or full-road geometry is asserted."
+    },
+    "sourceType": "open_geo",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "roadId": "SHU_BS_RD_JINQIU",
+    "regionId": "SHU_BAOSHAN_001",
+    "name": "锦秋路",
+    "status": "active",
+    "roadType": "primary",
+    "aliases": [],
+    "metadata": {
+      "osmWayIds": [
+        "49051403",
+        "376666780",
+        "376666781",
+        "376666782",
+        "376666783",
+        "759322150",
+        "769199658",
+        "1077697467",
+        "1077697570",
+        "1324597563",
+        "1324597568"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "coordinateSystem": "WGS84",
+      "sourceBoundary": "Bounded OSM road-name inventory; no official road classification or full-road geometry is asserted."
+    },
+    "sourceType": "open_geo",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "roadId": "SHU_BS_RD_NANCHEN",
+    "regionId": "SHU_BAOSHAN_001",
+    "name": "南陈路",
+    "status": "active",
+    "roadType": "tertiary",
+    "aliases": [],
+    "metadata": {
+      "osmWayIds": [
+        "341779260",
+        "341779261",
+        "376666731",
+        "697065825",
+        "697065826",
+        "1131957525",
+        "1131957527",
+        "1271083315",
+        "1271083335",
+        "1279367690",
+        "1279367695",
+        "1301728954",
+        "1324597562",
+        "1515404427",
+        "1515404429",
+        "1515404432",
+        "1515450193"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "coordinateSystem": "WGS84",
+      "sourceBoundary": "Bounded OSM road-name inventory; no official road classification or full-road geometry is asserted."
+    },
+    "sourceType": "open_geo",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "roadId": "SHU_BS_RD_HUIFENG",
+    "regionId": "SHU_BAOSHAN_001",
+    "name": "汇丰路",
+    "status": "active",
+    "roadType": "tertiary",
+    "aliases": [],
+    "metadata": {
+      "osmWayIds": [
+        "696699041",
+        "696699042",
+        "696699043",
+        "1301728976"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "coordinateSystem": "WGS84",
+      "sourceBoundary": "Bounded OSM road-name inventory; no official road classification or full-road geometry is asserted."
+    },
+    "sourceType": "open_geo",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "roadId": "SHU_BS_RD_JUFENGYUAN",
+    "regionId": "SHU_BAOSHAN_001",
+    "name": "聚丰园路",
+    "status": "active",
+    "roadType": "residential",
+    "aliases": [],
+    "metadata": {
+      "osmWayIds": [
+        "149844337",
+        "696921594",
+        "993986754"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "coordinateSystem": "WGS84",
+      "sourceBoundary": "Bounded OSM road-name inventory; no official road classification or full-road geometry is asserted."
+    },
+    "sourceType": "open_geo",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "roadId": "SHU_BS_RD_HUTAI",
+    "regionId": "SHU_BAOSHAN_001",
+    "name": "沪太路",
+    "status": "active",
+    "roadType": "primary",
+    "aliases": [],
+    "metadata": {
+      "osmWayIds": [
+        "39659300",
+        "39659307",
+        "39659343",
+        "39659344",
+        "39659345",
+        "697065852",
+        "697065855",
+        "697065857",
+        "759322151",
+        "769199659",
+        "908265186",
+        "908265187",
+        "908265188",
+        "908265189",
+        "1271083312",
+        "1271083316",
+        "1271083317",
+        "1271083318",
+        "1271083331",
+        "1271083332",
+        "1322051753"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "coordinateSystem": "WGS84",
+      "sourceBoundary": "Bounded OSM road-name inventory; no official road classification or full-road geometry is asserted."
+    },
+    "sourceType": "open_geo",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  }
+]

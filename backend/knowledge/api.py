@@ -1,0 +1,188 @@
+"""
+Knowledge REST API — Phase 16 Round 1
+
+Provides read/write access to the knowledge document lifecycle:
+  - List / detail / chunks
+  - Create (ingest) with validation
+  - Soft-delete
+  - Single-document reindex
+  - Index status + consistency check
+"""
+from __future__ import annotations
+
+from typing import Any, Dict, Optional
+
+from fastapi import APIRouter, File, Form, HTTPException, Query, UploadFile
+from pydantic import BaseModel, Field
+
+from backend.knowledge.service import (
+    KnowledgeError,
+    check_consistency,
+    create_document,
+    delete_document,
+    get_document_chunks,
+    get_document_detail,
+    get_index_status,
+    ingest_uploaded_document,
+    list_documents,
+    reindex_document,
+)
+from backend.knowledge.regional_context import (
+    EventKnowledgeContextService,
+    KnowledgeContextError,
+)
+
+router = APIRouter(prefix="/knowledge", tags=["Knowledge V1"])
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Request models
+# ═══════════════════════════════════════════════════════════════════════════════
+
+class CreateDocumentRequest(BaseModel):
+    """创建/录入知识文档。"""
+    name: str
+    docType: str
+    content: str
+    metadata: Optional[Dict[str, Any]] = Field(default_factory=dict)
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Document CRUD
+# ═══════════════════════════════════════════════════════════════════════════════
+
+@router.get("/documents", summary="列出知识文档")
+async def api_list_documents(
+    status: Optional[str] = Query(None, description="状态筛选: active/deleted/superseded/expired/draft"),
+    doc_type: Optional[str] = Query(None, description="类型筛选: rule/dispatch_experience/event_report/..."),
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+    include_deleted: bool = Query(False, description="是否包含已删除文档"),
+):
+    """列出知识文档（分页）。默认不包含已删除。"""
+    return list_documents(
+        status=status,
+        doc_type=doc_type,
+        limit=limit,
+        offset=offset,
+        include_deleted=include_deleted,
+    )
+
+
+@router.get("/documents/{document_id}", summary="获取文档详情")
+async def api_get_document(document_id: str):
+    """获取单个文档的元数据、内容及 chunk 数量。"""
+    result = get_document_detail(document_id)
+    if result is None:
+        raise HTTPException(status_code=404, detail=f"文档 '{document_id}' 不存在")
+    return result
+
+
+@router.post("/documents", summary="创建/录入知识文档")
+async def api_create_document(body: CreateDocumentRequest):
+    """录入新的知识文档。
+
+    支持 .md / .txt 文本内容。
+    自动进行内容校验、hash 去重、分块、向量化和索引。
+    """
+    try:
+        return create_document(
+            name=body.name,
+            doc_type=body.docType,
+            content=body.content,
+            metadata=body.metadata,
+        )
+    except KnowledgeError as e:
+        raise HTTPException(status_code=e.status_code, detail=str(e))
+
+
+@router.post("/documents/upload", summary="上传 TXT/MD 文件录入知识文档")
+async def api_upload_document(
+    file: UploadFile = File(..., description=".txt 或 .md 文件（≤100KB，UTF-8 编码）"),
+    doc_type: str = Form("other", description="文档类型（DocType 枚举值，默认 other）"),
+):
+    """多部分表单上传 TXT/MD 文件并走既有摄取管道。
+
+    文件仅在内存中读取，不落盘；PDF 等非文本类型一律拒绝。
+    同名文件重传走 checksum 去重 / 版本升级路径（与文本录入共用同一管道）。
+    """
+    try:
+        raw = await file.read()
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"读取上传文件失败: {e}")
+    try:
+        return ingest_uploaded_document(
+            filename=file.filename or "",
+            doc_type=doc_type,
+            raw_bytes=raw,
+        )
+    except KnowledgeError as e:
+        raise HTTPException(status_code=e.status_code, detail=str(e))
+
+
+@router.delete("/documents/{document_id}", summary="删除文档")
+async def api_delete_document(document_id: str):
+    """软删除文档。重复删除安全。"""
+    try:
+        return delete_document(document_id)
+    except KnowledgeError as e:
+        raise HTTPException(status_code=e.status_code, detail=str(e))
+
+
+@router.post("/documents/{document_id}/reindex", summary="重建文档索引")
+async def api_reindex_document(document_id: str):
+    """对单个文档重新执行索引。幂等操作。"""
+    try:
+        return reindex_document(document_id)
+    except KnowledgeError as e:
+        raise HTTPException(status_code=e.status_code, detail=str(e))
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Chunks
+# ═══════════════════════════════════════════════════════════════════════════════
+
+@router.get("/documents/{document_id}/chunks", summary="查看文档分块")
+async def api_get_chunks(
+    document_id: str,
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+):
+    """获取文档的分块列表（分页）。"""
+    result = get_document_chunks(document_id, limit=limit, offset=offset)
+    if result is None:
+        raise HTTPException(status_code=404, detail=f"文档 '{document_id}' 不存在")
+    return result
+
+
+@router.get("/events/{event_id}/context", summary="获取事件绑定知识上下文")
+async def api_event_knowledge_context(
+    event_id: str,
+    query: str = Query("", description="可选检索问题；为空时使用事件字段生成确定性查询"),
+    limit: int = Query(5, ge=1, le=20),
+):
+    """按真实事件 + canonical location binding 获取适用知识证据。"""
+    try:
+        return EventKnowledgeContextService().get_context_for_event(
+            event_id,
+            query=query,
+            limit=limit,
+        )
+    except KnowledgeContextError as e:
+        raise HTTPException(status_code=e.status_code, detail={"code": e.code, "message": e.message})
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Index status + consistency
+# ═══════════════════════════════════════════════════════════════════════════════
+
+@router.get("/index/status", summary="索引状态")
+async def api_index_status():
+    """获取当前知识索引状态（只读）。"""
+    return get_index_status()
+
+
+@router.get("/index/consistency", summary="索引一致性检查")
+async def api_index_consistency():
+    """检查 SQLite ↔ Chroma 数据一致性（只读）。"""
+    return check_consistency()

@@ -1,0 +1,310 @@
+[
+  {
+    "relationId": "SHU_BS_REL_HUIFENG_SHU_BS_INT_HUIFENG_JUFENGYUAN",
+    "regionId": "SHU_BAOSHAN_001",
+    "fromEntityType": "road",
+    "fromEntityId": "SHU_BS_RD_HUIFENG",
+    "toEntityType": "intersection",
+    "toEntityId": "SHU_BS_INT_HUIFENG_JUFENGYUAN",
+    "relationType": "connects",
+    "metadata": {
+      "osmNodeIds": [
+        "6544942349"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "derivation": "The road and paired road share the recorded OSM node."
+    },
+    "sourceType": "derived_from_real_geography",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "relationId": "SHU_BS_REL_JUFENGYUAN_SHU_BS_INT_HUIFENG_JUFENGYUAN",
+    "regionId": "SHU_BAOSHAN_001",
+    "fromEntityType": "road",
+    "fromEntityId": "SHU_BS_RD_JUFENGYUAN",
+    "toEntityType": "intersection",
+    "toEntityId": "SHU_BS_INT_HUIFENG_JUFENGYUAN",
+    "relationType": "connects",
+    "metadata": {
+      "osmNodeIds": [
+        "6544942349"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "derivation": "The road and paired road share the recorded OSM node."
+    },
+    "sourceType": "derived_from_real_geography",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "relationId": "SHU_BS_REL_JINQIU_SHU_BS_INT_JINQIU_HUIFENG",
+    "regionId": "SHU_BAOSHAN_001",
+    "fromEntityType": "road",
+    "fromEntityId": "SHU_BS_RD_JINQIU",
+    "toEntityType": "intersection",
+    "toEntityId": "SHU_BS_INT_JINQIU_HUIFENG",
+    "relationType": "connects",
+    "metadata": {
+      "osmNodeIds": [
+        "6542701484"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "derivation": "The road and paired road share the recorded OSM node."
+    },
+    "sourceType": "derived_from_real_geography",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "relationId": "SHU_BS_REL_HUIFENG_SHU_BS_INT_JINQIU_HUIFENG",
+    "regionId": "SHU_BAOSHAN_001",
+    "fromEntityType": "road",
+    "fromEntityId": "SHU_BS_RD_HUIFENG",
+    "toEntityType": "intersection",
+    "toEntityId": "SHU_BS_INT_JINQIU_HUIFENG",
+    "relationType": "connects",
+    "metadata": {
+      "osmNodeIds": [
+        "6542701484"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "derivation": "The road and paired road share the recorded OSM node."
+    },
+    "sourceType": "derived_from_real_geography",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "relationId": "SHU_BS_REL_JINQIU_SHU_BS_INT_JINQIU_HUTAI",
+    "regionId": "SHU_BAOSHAN_001",
+    "fromEntityType": "road",
+    "fromEntityId": "SHU_BS_RD_JINQIU",
+    "toEntityType": "intersection",
+    "toEntityId": "SHU_BS_INT_JINQIU_HUTAI",
+    "relationType": "connects",
+    "metadata": {
+      "osmNodeIds": [
+        "622397113"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "derivation": "The road and paired road share the recorded OSM node."
+    },
+    "sourceType": "derived_from_real_geography",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "relationId": "SHU_BS_REL_HUTAI_SHU_BS_INT_JINQIU_HUTAI",
+    "regionId": "SHU_BAOSHAN_001",
+    "fromEntityType": "road",
+    "fromEntityId": "SHU_BS_RD_HUTAI",
+    "toEntityType": "intersection",
+    "toEntityId": "SHU_BS_INT_JINQIU_HUTAI",
+    "relationType": "connects",
+    "metadata": {
+      "osmNodeIds": [
+        "622397113"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "derivation": "The road and paired road share the recorded OSM node."
+    },
+    "sourceType": "derived_from_real_geography",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "relationId": "SHU_BS_REL_JINQIU_SHU_BS_INT_JINQIU_NANCHEN",
+    "regionId": "SHU_BAOSHAN_001",
+    "fromEntityType": "road",
+    "fromEntityId": "SHU_BS_RD_JINQIU",
+    "toEntityType": "intersection",
+    "toEntityId": "SHU_BS_INT_JINQIU_NANCHEN",
+    "relationType": "connects",
+    "metadata": {
+      "osmNodeIds": [
+        "622387696"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "derivation": "The road and paired road share the recorded OSM node."
+    },
+    "sourceType": "derived_from_real_geography",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "relationId": "SHU_BS_REL_NANCHEN_SHU_BS_INT_JINQIU_NANCHEN",
+    "regionId": "SHU_BAOSHAN_001",
+    "fromEntityType": "road",
+    "fromEntityId": "SHU_BS_RD_NANCHEN",
+    "toEntityType": "intersection",
+    "toEntityId": "SHU_BS_INT_JINQIU_NANCHEN",
+    "relationType": "connects",
+    "metadata": {
+      "osmNodeIds": [
+        "622387696"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "derivation": "The road and paired road share the recorded OSM node."
+    },
+    "sourceType": "derived_from_real_geography",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "relationId": "SHU_BS_REL_SHANGDA_SHU_BS_INT_SHANGDA_HUIFENG",
+    "regionId": "SHU_BAOSHAN_001",
+    "fromEntityType": "road",
+    "fromEntityId": "SHU_BS_RD_SHANGDA",
+    "toEntityType": "intersection",
+    "toEntityId": "SHU_BS_INT_SHANGDA_HUIFENG",
+    "relationType": "connects",
+    "metadata": {
+      "osmNodeIds": [
+        "6542707785"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "derivation": "The road and paired road share the recorded OSM node."
+    },
+    "sourceType": "derived_from_real_geography",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "relationId": "SHU_BS_REL_HUIFENG_SHU_BS_INT_SHANGDA_HUIFENG",
+    "regionId": "SHU_BAOSHAN_001",
+    "fromEntityType": "road",
+    "fromEntityId": "SHU_BS_RD_HUIFENG",
+    "toEntityType": "intersection",
+    "toEntityId": "SHU_BS_INT_SHANGDA_HUIFENG",
+    "relationType": "connects",
+    "metadata": {
+      "osmNodeIds": [
+        "6542707785"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "derivation": "The road and paired road share the recorded OSM node."
+    },
+    "sourceType": "derived_from_real_geography",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "relationId": "SHU_BS_REL_SHANGDA_SHU_BS_INT_SHANGDA_HUTAI",
+    "regionId": "SHU_BAOSHAN_001",
+    "fromEntityType": "road",
+    "fromEntityId": "SHU_BS_RD_SHANGDA",
+    "toEntityType": "intersection",
+    "toEntityId": "SHU_BS_INT_SHANGDA_HUTAI",
+    "relationType": "connects",
+    "metadata": {
+      "osmNodeIds": [
+        "622387961"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "derivation": "The road and paired road share the recorded OSM node."
+    },
+    "sourceType": "derived_from_real_geography",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "relationId": "SHU_BS_REL_HUTAI_SHU_BS_INT_SHANGDA_HUTAI",
+    "regionId": "SHU_BAOSHAN_001",
+    "fromEntityType": "road",
+    "fromEntityId": "SHU_BS_RD_HUTAI",
+    "toEntityType": "intersection",
+    "toEntityId": "SHU_BS_INT_SHANGDA_HUTAI",
+    "relationType": "connects",
+    "metadata": {
+      "osmNodeIds": [
+        "622387961"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "derivation": "The road and paired road share the recorded OSM node."
+    },
+    "sourceType": "derived_from_real_geography",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "relationId": "SHU_BS_REL_SHANGDA_SHU_BS_INT_SHANGDA_NANCHEN",
+    "regionId": "SHU_BAOSHAN_001",
+    "fromEntityType": "road",
+    "fromEntityId": "SHU_BS_RD_SHANGDA",
+    "toEntityType": "intersection",
+    "toEntityId": "SHU_BS_INT_SHANGDA_NANCHEN",
+    "relationType": "connects",
+    "metadata": {
+      "osmNodeIds": [
+        "8983186639"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "derivation": "The road and paired road share the recorded OSM node."
+    },
+    "sourceType": "derived_from_real_geography",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  },
+  {
+    "relationId": "SHU_BS_REL_NANCHEN_SHU_BS_INT_SHANGDA_NANCHEN",
+    "regionId": "SHU_BAOSHAN_001",
+    "fromEntityType": "road",
+    "fromEntityId": "SHU_BS_RD_NANCHEN",
+    "toEntityType": "intersection",
+    "toEntityId": "SHU_BS_INT_SHANGDA_NANCHEN",
+    "relationType": "connects",
+    "metadata": {
+      "osmNodeIds": [
+        "8983186639"
+      ],
+      "sourceIds": [
+        "SRC_OSM_SHU_BAOSHAN_20261111"
+      ],
+      "derivation": "The road and paired road share the recorded OSM node."
+    },
+    "sourceType": "derived_from_real_geography",
+    "sourceReference": "SRC_OSM_SHU_BAOSHAN_20261111",
+    "verifiedAt": "2026-11-11T12:03:34Z",
+    "verificationStatus": "verified"
+  }
+]
